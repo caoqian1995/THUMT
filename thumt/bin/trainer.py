@@ -102,7 +102,13 @@ def default_parameters():
         save_checkpoint_steps=1000,
         # Setting this to True can save disk spaces, but cannot restore
         # training using the saved checkpoint
-        only_save_trainable=False
+        only_save_trainable=False,
+        # Setting this to True to save summary
+        # Notes: True means disk space usage huge!!!
+        summary_save=False,
+        # If set summary_save=True, modify the path and save steps
+        summary_path="",
+        summary_save_steps=2
     )
 
     return params
@@ -428,6 +434,16 @@ def main(args):
                 saver=saver
             )
         ]
+
+        if params.summary_save:
+            merged = tf.summary.merge_all()
+            train_hooks.append(
+                tf.train.SummarySaverHook(
+                    save_steps=params.summary_save_steps,
+                    output_dir=params.summary_path,
+                    summary_op=merged
+                )
+            )
 
         config = session_config(params)
 
