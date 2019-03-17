@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export PYTHONPATH=$PYTHONPATH:/data/qcao/code/THUMT
+PWD=`pwd`
+export PYTHONPATH=$PYTHONPATH:$PWD
+
 #==============================================
 #python /data/qcao/tools/subword-nmt/subword_nmt/learn_joint_bpe_and_vocab.py --input exper/corpus.tc.de exper/corpus.tc.en -s 32000 -o bpe32k --write-vocabulary vocab.de vocab.en
 #python /data/qcao/tools/subword-nmt/subword_nmt/apply_bpe.py --vocabulary vocab.de --vocabulary-threshold 50 -c bpe32k < exper/corpus.tc.de > exper/corpus.tc.32k.de
